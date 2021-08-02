@@ -12,7 +12,7 @@ export class AppComponent  implements OnInit {
   title = 'biblioteca-syncode';
 
   formulario!: FormGroup;
-
+  livros: any = [];
   /*
   nomeLivro = new FormControl('', Validators.required);
   capaLink = new FormControl('', Validators.required);
@@ -28,6 +28,9 @@ export class AppComponent  implements OnInit {
   ) { }
   ngOnInit(): void {
     this.formularioLivros();
+    this.service.getLivros().subscribe((data)=>{
+      this.livros = data;
+    })
   }
   formularioLivros(){
     this.formulario = this.form.group({
@@ -45,9 +48,13 @@ export class AppComponent  implements OnInit {
     this.service.postLivros(
       this.formulario.value
     ).subscribe((data)=>{
-      console.log(data)
+      console.log(data);
+      this.reload();
     })
-    console.log(this.formulario.value)
+    console.log(this.formulario.value);
+  }
+  reload(){
+    location.reload()
   }
 
 }

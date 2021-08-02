@@ -27,11 +27,15 @@ export class LivrosService {
   ) { }
    
   postLivros(livros: cadastrarLivro){
-    return this.http.post("https://home.adaptei.com.br/swagger/#/livro", livros, {headers: this.authorization})
+    return this.http.post("https://home.adaptei.com.br/biblioteca/api/livro", livros, {headers: this.authorization});
   }
 
   getLivros(){
-    return this.http.get(`https://home.adaptei.com.br/biblioteca/api/livro`, {headers: this.authorization})
+    return this.http.get(`https://home.adaptei.com.br/biblioteca/api/livro`, {headers: this.authorization});
+  }
+
+  excluirLivro(idLivro: any){
+    return this.http.delete(`https://home.adaptei.com.br/biblioteca/api/livro/${idLivro}`, {headers: this.authorization}).subscribe(res=>{location.reload()});
   }
 
 }

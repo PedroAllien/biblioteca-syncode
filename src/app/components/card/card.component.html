@@ -1,25 +1,162 @@
-<div class="card">
+<div class="card" >  
     <div class="box-initial">
       <div class="box-image">
-        <img width="100%" height="100%" src="https://images-na.ssl-images-amazon.com/images/I/71ZLavBjpRL.jpg" class="card-img-top" alt="...">
+        <img width="100%" height="100%" [src]="livro.capaLink" class="card-img-top" alt="...">
       </div>
       <div class="card-body">
-        <p class="nome-livro">O Senhor dos Anéis</p>
-        <p class="autor-edicao">JRR.Tolkien - 04 Edição </p>
-        
-          <div class="locado">
+        <p class="nome-livro">{{livro.nomeLivro}} </p>
+        <p class="autor-edicao">{{livro.nomeAutor}} </p>
+          <div class="disponivel">
             <div class="icon-circular"></div>
-            <span>Locado</span>
+            <span>Disponível</span>
           </div>
       </div>
     </div>
     <div class="box-hover">
-        <span>Emprestar</span>
+        <span (click)="emprestarModal.show()">Emprestar</span>
         <div class="line"></div>
-        <span>Devolver</span>
+        <span (click)="devolverModal.show()">Devolver</span>
         <div class="line"></div>
-        <span>Editar</span>
+        <span (click)="editarModal.show()">Editar</span>
         <div class="line"></div>
-        <span >Excluir</span>
+        <span (click)="openModal(template, livro.id)" >Excluir</span>
     </div>
+</div>
+
+<div class="modal-emprestar"> 
+  <div bsModal #emprestarModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="dialog-sizes-name1" class="modal-title pull-left">Emprestar Livro</h4>
+        <button type="button" class="close pull-right" (click)="emprestarModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex justify-content-between">
+        <div class="row">
+          <span>Nome do livro*</span>
+          <b>Livro 01</b>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="formGroupExampleInput2">Data de devolução*</label>
+          <input type="text"
+          placeholder="00/00/0000"
+          class="form-control"
+          bsDatepicker
+          >
+        </div>
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-outline-primary col-md-2" popover="Vivamus sagittis" (click)="emprestarModal.hide()">Cancelar</button>
+        <button type="button" class="btn btn-primary col-md-2" tooltip="Vivamus sagittis" >Confirmar</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<div class="modal-editar">
+  <div bsModal #editarModal="bs-modal" class="modal fade" tabindex="-1"
+      role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-sizes-name1" class="modal-title pull-left">Novo Livro</h4>
+          <button type="button" class="close pull-right" (click)="editarModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="formGroupNomeEdit">Nome Livro*</label>
+              <input type="text" class="form-control" placeholder="texto" >
+            </div>
+            <div class="d-flex form-row inline justify-content-between">
+              <div class="form-group col-md-8">
+                <label for="formGroupAutorEdit">Autor*</label>
+                <input type="text" class="form-control"  placeholder="texto" >
+              </div>
+              <div class="form-group col-md-3">
+                <label for="formGroupEdicaoEdit">Edição*</label>
+                <input type="text" class="form-control" placeholder="01" >
+              </div>
+            </div>
+            <div class="d-flex form-row inline justify-content-between">
+              <div class="form-group col-md-8">
+                <label for="formGroupCapaEdit">Link da Capa*</label>
+                <input type="text" class="form-control" placeholder="url" >
+              </div>
+              <div class="form-group col-md-3">
+                <label for="formGroupDataEdit">Data de publicação*</label>
+                <input type="text"
+                placeholder="00/00/0000"
+                class="form-control"
+                bsDatepicker
+                >
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="Resumo">Resumo</label>
+              <textarea class="form-control" rows="3" placeholder="Texto"></textarea>
+            </div>
+          </form>
+          <div class="disponivel mt-3">
+            <div class="icon-circular"></div>
+            <span>Disponível</span>
+          </div>
+        </div>
+        <div class="modal-footer ">
+          <button type="button" class="btn btn-outline-primary col-md-2" popover="Vivamus sagittis" (click)="editarModal.hide()">Cancelar</button>
+          <button type="button" class="btn btn-primary col-md-2" tooltip="Vivamus sagittis">Salvar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #template >
+          <div class="modal-header"  >
+            <h5 id="dialog-sizes-name1" class="modal-title pull-left">Confirmação de exclusão</h5>
+            <button type="button" class="close pull-right" (click)="modalRef.hide()"  aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body d-flex flex-column align-items-center">
+            <img src="../../../../assets/check.svg">
+            <p style="padding-top: 20px; color: #454E5F; font-weight: bold;">Confirma a exclusão do livro “Nome do livro"</p> 
+          </div>
+          <div class="modal-footer ">
+            <button type="button" class="btn btn-outline-primary col-md-2" (click)="modalRef.hide()" style="font-size: 14px;">Cancelar</button>
+            <button type="button" class="btn btn-primary col-md-2" (click)="excluirLivro()" style="font-size: 14px;">Confirmar</button>
+        </div>
+</ng-template>
+
+
+
+<div class="modal-devolver"> 
+  <div bsModal #devolverModal="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="dialog-sizes-name1" class="modal-title pull-left">Confirmação de devolução</h5>
+        <button type="button" class="close pull-right" (click)="devolverModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex flex-column align-items-center">
+        <img src="../../../../assets/check.svg">
+        <p style="padding-top: 20px; color: #454E5F; font-weight: bold;">Confirma a devolução do livro “Nome do livro"</p> 
+      </div>
+      <div class="modal-footer ">
+        <button type="button" class="btn btn-outline-primary " popover="Vivamus sagittis" (click)="devolverModal.hide()" >Cancelar</button>
+        <button type="button" class="btn btn-primary " tooltip="Vivamus sagittis">Confirmar</button>
+      </div>
+    </div>
+  </div>
+  </div>
 </div>
