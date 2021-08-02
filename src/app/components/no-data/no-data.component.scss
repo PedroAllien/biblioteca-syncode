@@ -1,0 +1,20 @@
+.nodata{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    img{
+        width: 133px;
+        height: 126px;
+    }
+    b{
+        margin: 20px;
+        font-size: 24px;
+    }
+    p{
+        font-size: 18px;
+        line-height: 22px;
+        text-align: center;
+    }
+
+}
